@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import S from './styles.jsx';
+import S from './styles';
 import trole from '../../assets/trole.svg';
 
 function Header({ itemsSelected }: { itemsSelected: number }) {

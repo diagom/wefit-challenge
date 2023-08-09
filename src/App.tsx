@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import AppStyle from './App.style';
+import Header from './components/header';
+import useMovieListHook from './hooks/movie-hook';
+import MovieListPage from './pages/movie-list-page/movie-list-page';
+import BuyingListPage from './pages/buying-list-page/buying-list-page';
+import CompletedPurchase from './pages/completed-purchase';
 
 function App() {
+  const {
+    movies,
+    isLoadingActive,
+    inTheTrolley,
+    totalPrice,
+    addNewItemInTheTrolley,
+    removeOneItem,
+    RemoveMovie,
+    setMovieByInput,
+  } = useMovieListHook();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppStyle>
+      <Header itemsSelected={inTheTrolley.length} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MovieListPage
+              movies={movies}
+              isLoadingActive={isLoadingActive}
+              inTheTrolley={inTheTrolley}
+              setInTheTrolley={addNewItemInTheTrolley}
+            />
+          }
+        />
+
+        <Route
+          path="/carrinho"
+          element={
+            <BuyingListPage
+              removeOneItem={removeOneItem}
+              RemoveMovie={RemoveMovie}
+              setInTheTrolley={addNewItemInTheTrolley}
+              setMovieByInput={setMovieByInput}
+              totalPrice={totalPrice}
+              movies={inTheTrolley}
+            />
+          }
+        />
+
+        <Route path="/comprado" element={<CompletedPurchase />} />
+      </Routes>
+    </AppStyle>
   );
 }
 

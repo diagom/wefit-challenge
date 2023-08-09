@@ -1,4 +1,4 @@
-import S from './styles.jsx';
+import S from './styles';
 import Loader from '../../components/Loader';
 import { IMovies } from '../../services/interfaces/movie.interface.js';
 import MovieCard from '../../components/Movie-card/';
